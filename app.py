@@ -1,6 +1,10 @@
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # Suppress most TensorFlow logging
+os.environ['TF_ENABLE_GPU_GARBAGE_COLLECTION'] = 'true'  # Ensure GPU memory is managed properly
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'  # Disable GPU devices
+
 from flask import Flask, request, render_template, send_from_directory
 import numpy as np
-import os
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 from werkzeug.utils import secure_filename
@@ -19,7 +23,6 @@ model = load_model(model_path)
 # Class labels
 class_labels = ['cancer', 'noncancer', 'others']
 
-
 def model_predict(img_path, model):
     # Load and preprocess the image
     img = load_img(img_path, target_size=(224, 224))  # Resize image to 224x224
@@ -31,29 +34,24 @@ def model_predict(img_path, model):
     prediction = model.predict(img)
     return prediction
 
-
 @app.route('/', methods=['GET'])
 def index():
     # Main page
     return render_template('index.html')
-
 
 @app.route('/BreastCancerInfo', methods=['GET'])
 def breast_cancer_info():
     # Breast Cancer Info page
     return render_template('BreastCancerInfo.html')
 
-
 @app.route('/contributors', methods=['GET'])
 def contributors():
     # Contributors page
     return render_template('contributors.html')
 
-
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
-
 
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
@@ -81,7 +79,6 @@ def predict():
             return render_template('result.html', result_text=result_text, filename=filename)
 
     return "Method not allowed", 405
-
 
 if __name__ == '__main__':
     app.run(debug=True)
