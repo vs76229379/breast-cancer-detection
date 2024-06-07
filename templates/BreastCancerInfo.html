@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breast Cancer Detection Info</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        /* Custom styles can go here */
+        .project-description {
+            margin-top: 20px;
+        }
+        .project-images img {
+            width: 100%;
+            height: auto;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: auto; /* Ensures footer stays at the bottom */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Breast Cancer Detection</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('index') }}">Upload Image</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Breast Cancer Info</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('contributors') }}">Contributors</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container project-description">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>About the Project</h1>
+                <p>
+                    Cancer is the leading cause of non-accidental deaths worldwide. Breast Cancer is a common and fatal disease
+among women worldwide, and ranks 4th among the fatal diseases among various cancers, such as cervical,
+colorectal, and cervical tumors and brain tumors. In today's medical landscape, the imperative for accurate
+and timely breast cancer prediction has become paramount. Early and accurate diagnosis plays a pivotal role
+in improving prognosis and increasing the survival rate of cancer patients from 30 to 50%. Medical images
+can be used to find important information for locating and diagnosing breast cancer. The aim of this study is
+to identify studies that have been done on the application of classification techniques in diagnosing breast
+cancer and analyze them from four perspectives: classification techniques used, Dataset used, Programming
+language used and best accuracy. The classification models discussed here are based on various ML
+techniques applied on different datasets. Machine learning algorithms like decision trees, KNN, SVM,
+naïve bays, logistic regression etc. give better performance in their own field. The results showed that among
+the classification techniques examined, support vector machines, logistic regression and k-nearest neighbors
+were the most widely used. Their accuracies lied between 95.62 and 97.07. Most of the selected studies used
+the Wisconsin CSV dataset and a few of the studies used different types of images such as mammography,
+ultrasound, and micro images.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container project-images">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="static/image1.jpeg" class="img-fluid" alt="Breast Cancer Image 1">
+            </div>
+            <div class="col-md-4">
+                <img src="static/image2.png" class="img-fluid" alt="Breast Cancer Image 2">
+            </div>
+            <div class="col-md-4">
+                <img src="static/image3.png" class="img-fluid" alt="Breast Cancer Image 3">
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        © 2024 Breast Cancer Detection
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

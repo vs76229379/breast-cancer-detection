@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contributors</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        /* Custom styles can go here */
+        .card {
+            margin-bottom: 20px;
+            
+        }
+        .card-img-top {
+            width: 100%;
+            height: 200px;
+            object-fit: cover; /* Updated property */
+            height: 500px;
+        }
+        #prof{
+            width: 100%;
+            height: 200px;
+            object-fit: cover; /* Updated property */
+            height: 400px;
+        }
+       
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Breast Cancer Detection</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('index') }}">Upload Image</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contributors</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h1 class="mb-4">Contributors</h1>
+
+        <!-- Professor Card -->
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="../static/prof.png" id="prof" alt="Professor">
+                    <div class="card-body">
+                        <h5 class="card-title">DR. B.G.Sudarshan</h5>
+                        <p class="card-text">Associate Professor-Electronics and Instrumentation Engineeering</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Teammates -->
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <img src="../static/vivekimage.jpeg" class="card-img-top" alt="Teammate 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Vivek Singh</h5>
+                        <p class="card-text">Undergraduate Student</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <img src="../static/saranshimage.jpeg" class="card-img-top" alt="Teammate 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Saransh Pandey</h5>
+                        <p class="card-text">Undergraduate Student</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <img src="../static/Girirajimage.jpeg" class="card-img-top" alt="Teammate 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Giriraj Soni</h5>
+                        <p class="card-text">Undergraduate Student</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <img src="../static/kartikeyaimage.jpeg" class="card-img-top" alt="Teammate 4">
+                    <div class="card-body">
+                        <h5 class="card-title">Kartikeya Tiwari</h5>
+                        <p class="card-text">Undergraduate Student</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="container text-center">
+            © 2024 Breast Cancer Detection
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

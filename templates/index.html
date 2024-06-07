@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breast Cancer Detection</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* No need to redefine #file styles here */
+        .form-group {
+            text-align: center;
+            padding-left: 225px;
+        }
+        
+        /* Sticky footer */
+        html,
+        body {
+            height: 100%;
+        }
+        
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .footer {
+            flex-shrink: 0;
+        }
+
+        /* Animation */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .processing {
+            animation: spin 2s linear infinite;
+            margin: 0 auto;
+            font-size: 30px;
+            color: blue;
+        }
+
+        /* Hide the processing div by default */
+        #processingDiv {
+            display: none;
+        }
+
+        /* Background image */
+        .background-image {
+            background-image: url('https://www.datanami.com/wp-content/uploads/2019/09/brain_AI_shutterstock_Jozsef-Bagota.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            z-index: 0;
+            height: 100%;
+        }
+
+        /* Adjusting the footer */
+        .footer {
+            margin-top: auto;
+            background-color: #f8f9fa; /* Set your desired background color */
+            color: #6c757d; /* Set your desired text color */
+        }
+    </style>
+</head>
+<body>
+    <div class="background-image">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Breast Cancer Detection</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Upload Image</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('breast_cancer_info') }}">Breast Cancer Info</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('contributors') }}">Contributors</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container mt-5">
+            <div class="text-center">
+                <h1>Upload an Image</h1>
+                <form id="uploadForm" method="post" enctype="multipart/form-data" action="/predict">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="file" class="form-control-file" id="file" name="file">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Predict</button>
+                </form>
+                <div id="processingDiv" class="processing">Processing...</div>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer py-3 text-muted text-center">
+        © 2024 Breast Cancer Detection
+    </footer>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            // Prevent the default form submission behavior
+            event.preventDefault();
+            
+            // Show processing animation
+            document.getElementById('processingDiv').style.display = "block";
+
+            // Simulate longer processing time
+            setTimeout(function() {
+                // Submit the form after processing
+                document.getElementById('uploadForm').submit();
+            }, 5000); // Adjust processing time as needed (in milliseconds)
+        });
+    </script>
+
+</body>
+</html>
