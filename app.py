@@ -5,6 +5,7 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 from werkzeug.utils import secure_filename
 from tensorflow.keras import backend as K
+import tensorflow as tf
 
 # Suppress TensorFlow logging and disable GPU
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # Suppress most TensorFlow logging
@@ -39,6 +40,8 @@ def model_predict(img_path, model):
     except Exception as e:
         print(f"Error in model prediction: {e}")
         return None
+    finally:
+        K.clear_session()  # Clear TensorFlow session to free up memory
 
 @app.route('/', methods=['GET'])
 def index():
@@ -84,9 +87,6 @@ def predict():
                 result_label = class_labels[result_index]  # Get the class label
 
                 result_text = f"Prediction: {result_label}"
-
-                # Clear TensorFlow session to free up memory
-                K.clear_session()
 
                 # Remove file after prediction
                 if os.path.exists(file_path):
