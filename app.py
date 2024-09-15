@@ -1,13 +1,15 @@
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # Suppress most TensorFlow logging
-os.environ['TF_ENABLE_GPU_GARBAGE_COLLECTION'] = 'true'  # Ensure GPU memory is managed properly
-os.environ['CUDA_VISIBLE_DEVICES'] = '-1'  # Disable GPU devices
-
-from flask import Flask, request, render_template, send_from_directory
 import numpy as np
+from flask import Flask, request, render_template, send_from_directory
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 from werkzeug.utils import secure_filename
+from tensorflow.keras import backend as K
+
+# Suppress TensorFlow logging and disable GPU
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # Suppress most TensorFlow logging
+os.environ['TF_ENABLE_GPU_GARBAGE_COLLECTION'] = 'true'  # Ensure GPU memory is managed properly
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'  # Disable GPU devices
 
 app = Flask(__name__)
 
@@ -76,9 +78,16 @@ def predict():
 
             result_text = f"Prediction: {result_label}"
 
+            # Clear TensorFlow session to free up memory
+            K.clear_session()
+
+            # Remove file after prediction
+            if os.path.exists(file_path):
+                os.remove(file_path)
+
             return render_template('result.html', result_text=result_text, filename=filename)
 
     return "Method not allowed", 405
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
