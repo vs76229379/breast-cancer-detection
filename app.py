@@ -26,15 +26,19 @@ model = load_model(model_path)
 class_labels = ['cancer', 'noncancer', 'others']
 
 def model_predict(img_path, model):
-    # Load and preprocess the image
-    img = load_img(img_path, target_size=(224, 224))  # Resize image to 224x224
-    img = img_to_array(img)
-    img = np.expand_dims(img, axis=0)
-    img = img / 255.0  # Normalize the image to the range [0, 1]
+    try:
+        # Load and preprocess the image
+        img = load_img(img_path, target_size=(224, 224))  # Resize image to 224x224
+        img = img_to_array(img)
+        img = np.expand_dims(img, axis=0)
+        img = img / 255.0  # Normalize the image to the range [0, 1]
 
-    # Make prediction
-    prediction = model.predict(img)
-    return prediction
+        # Make prediction
+        prediction = model.predict(img)
+        return prediction
+    except Exception as e:
+        print(f"Error in model prediction: {e}")
+        return None
 
 @app.route('/', methods=['GET'])
 def index():
@@ -64,28 +68,34 @@ def predict():
         if file.filename == '':
             return "No selected file"
         if file:
-            # Save the uploaded file
-            filename = secure_filename(file.filename)
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            file.save(file_path)
+            try:
+                # Save the uploaded file
+                filename = secure_filename(file.filename)
+                file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                file.save(file_path)
 
-            # Make prediction
-            prediction = model_predict(file_path, model)
+                # Make prediction
+                prediction = model_predict(file_path, model)
+                if prediction is None:
+                    return "Error processing the image"
 
-            # Process the prediction and return the result
-            result_index = np.argmax(prediction, axis=1)[0]  # Get the index of the predicted class
-            result_label = class_labels[result_index]  # Get the class label
+                # Process the prediction and return the result
+                result_index = np.argmax(prediction, axis=1)[0]  # Get the index of the predicted class
+                result_label = class_labels[result_index]  # Get the class label
 
-            result_text = f"Prediction: {result_label}"
+                result_text = f"Prediction: {result_label}"
 
-            # Clear TensorFlow session to free up memory
-            K.clear_session()
+                # Clear TensorFlow session to free up memory
+                K.clear_session()
 
-            # Remove file after prediction
-            if os.path.exists(file_path):
-                os.remove(file_path)
+                # Remove file after prediction
+                if os.path.exists(file_path):
+                    os.remove(file_path)
 
-            return render_template('result.html', result_text=result_text, filename=filename)
+                return render_template('result.html', result_text=result_text, filename=filename)
+            except Exception as e:
+                print(f"Error during file processing or prediction: {e}")
+                return "An error occurred during prediction"
 
     return "Method not allowed", 405
 
